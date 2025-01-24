@@ -1,0 +1,12 @@
+# Go
+bin/
+pkg/
+
+# C#
+bin/
+obj/
+
+# Archivos del IDE (Ejemplo para Visual Studio)
+.vs/
+*.user
+*.suo
