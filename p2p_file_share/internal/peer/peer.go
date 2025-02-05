@@ -66,36 +66,31 @@ func handleDownload(conn net.Conn, filePath string, savePath string){
 	fmt.Println("File downloaded successfully :)")
 }
 
-func handleClient(conn net.Conn) {
+func handleClient(conn net.Conn){
 	defer conn.Close()
 
 	buf := make([]byte, 1024)
 	n, err := conn.Read(buf)
-	if err != nil {
+	if err != nil{
 		fmt.Println("Connection closed :(", err)
 		return
 	}
 	fileName := string(buf[:n])
-
-	
 	file, err := os.Open(fileName)
-	if err != nil {
-		if os.IsNotExist(err) {
-			fmt.Printf("File %v doesn't exist\n", fileName)
-			sendMessage(conn, "File not found :(")
-		} else {
-			fmt.Println("Error reading file", err)
-			sendMessage(conn, "There was an error reading the file")
-		}
-		return 
+	defer file.Close()
+
+	if err == nil{
+		fmt.Println("Sending file to peer...")
+		sendFile(file, conn)
+		return
+	}else if os.IsNotExist(err){
+		fmt.Printf("File %v done´t exists", fileName)
+		sendMessage(conn, "File not found :(")
+	}else{
+		fmt.Println("Error reading file", err)
+		sendMessage(conn, "There was an error reading the file")
 	}
-	defer file.Close() 
-
-	
-	fmt.Println("Sending file to peer...")
-	sendFile(file, conn)
 }
-
 
 func sendFile(file *os.File, conn net.Conn){
 	reader := bufio.NewReader(file)
