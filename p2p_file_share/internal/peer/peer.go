@@ -32,7 +32,7 @@ func StartListening(port string) {
 func DownloadFile(address string, filePath string, savePath string){
 	conn, err := net.Dial("tcp", address)
 	if err != nil{
-		fmt.Println("Error conecting to peer:", err)
+		fmt.Println("Error connecting to peer:", err)
 		return
 	}
 	defer conn.Close()
@@ -44,7 +44,7 @@ func handleDownload(conn net.Conn, filePath string, savePath string){
 
 	file, err := os.Create(savePath)
 	if err != nil{
-		fmt.Println("Error creatin file:", err)
+		fmt.Println("Error creating file:", err)
 		return
 	}
 	defer file.Close()
@@ -63,7 +63,7 @@ func handleDownload(conn net.Conn, filePath string, savePath string){
 			break
 		}
 	}
-	fmt.Println("File downloaded succesfully :)")
+	fmt.Println("File downloaded successfully :)")
 }
 
 func handleClient(conn net.Conn){
@@ -80,14 +80,14 @@ func handleClient(conn net.Conn){
 	defer file.Close()
 
 	if err == nil{
-		fmt.Println("Sendin file to peer...")
+		fmt.Println("Sending file to peer...")
 		sendFile(file, conn)
 		return
 	}else if os.IsNotExist(err){
-		fmt.Printf("File %v doen´t exists", fileName)
-		sendMessage(conn, "File not founs :(")
+		fmt.Printf("File %v done´t exists", fileName)
+		sendMessage(conn, "File not found :(")
 	}else{
-		fmt.Println("Error readin file", err)
+		fmt.Println("Error reading file", err)
 		sendMessage(conn, "There was an error reading the file")
 	}
 }
@@ -110,7 +110,7 @@ func sendFile(file *os.File, conn net.Conn){
 			break
 		}
 	}
-	fmt.Println("File sent succesfully: :)")
+	fmt.Println("File sent successfully: :)")
 }
 
 func sendMessage(conn net.Conn, message string){
