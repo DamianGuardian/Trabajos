@@ -6,6 +6,8 @@ import (
 	"net"
 	"os"
 	"sync"
+
+	"github.com/DamianGuardian/p2p_chat/internal/peer"
 )
 
 var (
