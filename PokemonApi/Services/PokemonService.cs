@@ -1,12 +1,24 @@
+using System.ServiceModel;
 using PokemonApi.Dtos;
+using PokemonApi.Mapers;
+using PokemonApi.Repositories;
 
 namespace PokemonApi.Services;
 
 public class PokemonService : IPokemonService
 {
-    public Task<PokemonResponseDto> GetPokemonById(Guid id, CancellationToken cancellationToken){
-        
-        return null;
+    private readonly IPokemonRepository _pokemonRepository;
 
+    public PokemonService(IPokemonRepository pokemonRepository)
+    {
+        _pokemonRepository = pokemonRepository;
+    }
+
+    public async Task<PokemonResponseDto> GetPokemonById(Guid id, CancellationToken cancellationToken){
+        var pokemon = await _pokemonRepository.GetByIdAsync(id, cancellationToken);
+        if (pokemon is null){
+            throw new FaultException("Pokemon not found:(");
+        }
+        return pokemon.ToDto();
     }
 }
