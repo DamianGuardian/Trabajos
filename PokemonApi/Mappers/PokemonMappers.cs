@@ -6,23 +6,25 @@ namespace PokemonApi.Mapers;
 public static class PokemonMapper
 {
     public static Pokemon ToModel(this PokemonEntity pokemonEntity)
+{
+    if (pokemonEntity == null) throw new ArgumentNullException(nameof(pokemonEntity));
+
+    return new Pokemon
     {
-        return new Pokemon
-{
+        Id = pokemonEntity.Id,
+        Name = pokemonEntity.Name,
+        Type = pokemonEntity.Type,
+        Level = pokemonEntity.Level,
+        Stats = new Stats
+        {
+            Attack = pokemonEntity.Attack,
+            Defense = pokemonEntity.Defense,
+            Speed = pokemonEntity.Speed
+        }
+    };
+}
 
-            Id = pokemonEntity.Id,
-            Name = pokemonEntity.Name,
-            Type = pokemonEntity.Type,
-            Level = pokemonEntity.Level,
-            Stats = new Stats
-{
-                Attack = pokemonEntity.Attack,
-                Defense = pokemonEntity.Defense,
-                Speed = pokemonEntity.Speed
-            }
 
-        };
-    }
     public static PokemonResponseDto ToDto(this Pokemon pokemon){
         return new PokemonResponseDto{
             Id = pokemon.Id,
