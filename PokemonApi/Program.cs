@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSoapCore();
 
 // Cambiar IPokemonService a Scoped en lugar de Singleton
-builder.Services.AddScoped<IPokemonService, PokemonService>();
+builder.Services.AddSingleton<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 
 builder.Services.AddDbContext<RelationlDbContext>(options =>

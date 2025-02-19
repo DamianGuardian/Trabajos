@@ -13,14 +13,16 @@ public static class PokemonMapper
             Name = pokemonEntity.Name,
             Type = pokemonEntity.Type,
             Level = pokemonEntity.Level,
+            SpecialAttack = pokemonEntity.SpecialAttack,
+            SpecialDefense = pokemonEntity.SpecialDefense,
             Stats = new Stats
             {
                 Attack = pokemonEntity.Attack,
                 Defense = pokemonEntity.Defense,
                 Speed = pokemonEntity.Speed
+               
             },
-            SpecialAttack = pokemonEntity.SpecialAttack,
-            SpecialDefense = pokemonEntity.SpecialDefense
+            
         };
     }
 
@@ -32,14 +34,16 @@ public static class PokemonMapper
             Name = pokemon.Name,
             Type = pokemon.Type,
             Level = pokemon.Level,
+            SpecialAttack = pokemon.SpecialAttack,
+            SpecialDefense = pokemon.SpecialDefense,
             Stats = new statsDto
             {
                 Attack = pokemon.Stats.Attack,
                 Defense = pokemon.Stats.Defense,
                 Speed = pokemon.Stats.Speed
+
             },
-            SpecialAttack = pokemon.SpecialAttack,
-            SpecialDefense = pokemon.SpecialDefense
+
         };
     }
 }
