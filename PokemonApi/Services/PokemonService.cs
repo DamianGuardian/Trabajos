@@ -14,11 +14,27 @@ public class PokemonService : IPokemonService
         _pokemonRepository = pokemonRepository;
     }
 
-    public async Task<PokemonResponseDto> GetPokemonById(Guid id, CancellationToken cancellationToken){
+    public async Task<PokemonResponseDto> GetPokemonById(Guid id, CancellationToken cancellationToken)
+    {
         var pokemon = await _pokemonRepository.GetByIdAsync(id, cancellationToken);
-        if (pokemon is null){
+        if (pokemon is null)
+        {
             throw new FaultException("Pokemon not found:(");
         }
         return pokemon.ToDto();
+    }
+    public async Task<bool> DeletePokemon(Guid id, CancellationToken cancellationToken)
+    {
+        var pokemon = await _pokemonRepository.GetByIdAsync(id, cancellationToken);
+        if (pokemon is null)
+        {
+            throw new FaultException("Pokemon not found:(");
+        }
+        await _pokemonRepository.DeleteAsync(pokemon, cancellationToken);
+        return true;
+    }
+    public async Task<PokemonResponseDto> CreatePokemon(CreatePokemonDto pokemonRequestDto, CancellationToken cancellationToken)
+    {
+        return null;
     }
 }

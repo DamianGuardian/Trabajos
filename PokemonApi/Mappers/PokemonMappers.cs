@@ -3,8 +3,20 @@ using PokemonApi.Infrastructure;
 using PokemonApi.Models;
 namespace PokemonApi.Mapers;
 
-public static class PokemonMapper
-{
+public static class PokemonMapper{
+    public static PokemonEntity ToEntity(this Pokemon pokemon) {
+        return new PokemonEntity {
+            Id = pokemon.Id,
+            Name = pokemon.Name,
+            Type = pokemon.Type,
+            Level = pokemon.Level,
+            SpecialAttack = pokemon.SpecialAttack,
+            SpecialDefense = pokemon.SpecialDefense,
+            Attack = pokemon.Stats.Attack,
+            Defense = pokemon.Stats.Defense,
+            Speed = pokemon.Stats.Speed
+        };
+    }
     public static Pokemon ToModel(this PokemonEntity pokemonEntity)
     {
         return new Pokemon
@@ -20,9 +32,9 @@ public static class PokemonMapper
                 Attack = pokemonEntity.Attack,
                 Defense = pokemonEntity.Defense,
                 Speed = pokemonEntity.Speed
-               
+
             },
-            
+
         };
     }
 
