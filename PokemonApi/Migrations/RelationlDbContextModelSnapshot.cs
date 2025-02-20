@@ -39,12 +39,6 @@ namespace PokemonApi.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("SpecialAttack")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SpecialDefense")
-                        .HasColumnType("int");
-
                     b.Property<int>("Speed")
                         .HasColumnType("int");
 

@@ -13,5 +13,4 @@ public class statsDto
 
     [DataMember(Name = "speed", Order = 3)]
     public int Speed { get; set; }
-
 }

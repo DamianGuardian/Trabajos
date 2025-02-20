@@ -8,12 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSoapCore();
 
-// Cambiar IPokemonService a Scoped en lugar de Singleton
 builder.Services.AddSingleton<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 
-builder.Services.AddDbContext<RelationlDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+builder.Services.AddDbContext<RelationlDbContext>(options => 
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 var app = builder.Build();
