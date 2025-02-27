@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokemonApi.Infrastructure;
 
@@ -9,17 +10,39 @@ using PokemonApi.Infrastructure;
 
 namespace PokemonApi.Migrations
 {
-    [DbContext(typeof(RelationlDbContext))]
-    partial class RelationlDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RelationalDbContext))]
+    [Migration("20250226193535_TableHobbies")]
+    partial class TableHobbies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("PokemonApi.Infrastructure.PokemonEntity", b =>
+            modelBuilder.Entity("PokemonApi.Infrastructure.Entities.HobiesEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Top")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hobies");
+                });
+
+            modelBuilder.Entity("PokemonApi.Infrastructure.Entities.PokemonEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,6 +52,9 @@ namespace PokemonApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Defense")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Health")
                         .HasColumnType("int");
 
                     b.Property<int>("Level")

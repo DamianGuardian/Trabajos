@@ -10,9 +10,9 @@ using PokemonApi.Infrastructure;
 
 namespace PokemonApi.Migrations
 {
-    [DbContext(typeof(RelationlDbContext))]
-    [Migration("20250213010629_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(RelationalDbContext))]
+    [Migration("20250226192211_migrations")]
+    partial class migrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace PokemonApi.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("PokemonApi.Infrastructure.PokemonEntity", b =>
+            modelBuilder.Entity("PokemonApi.Infrastructure.Entities.PokemonEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,6 +32,9 @@ namespace PokemonApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Defense")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Health")
                         .HasColumnType("int");
 
                     b.Property<int>("Level")
