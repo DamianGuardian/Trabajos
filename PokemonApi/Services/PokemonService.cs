@@ -19,8 +19,7 @@ public class PokemonService : IPokemonService
         if (pokemon is null) {
             throw new FaultException("Pokemon not found :(");
         }
-        return pokemon.ToDto();
-    }
+        return pokemon.ToDto();}
     public async Task<bool> DeletePokemon(Guid id, CancellationToken cancellationToken){
         var pokemon = await _pokemonRepository.GetByIdAsync(id, cancellationToken);
         if (pokemon is null) {
