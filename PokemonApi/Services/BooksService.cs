@@ -1,43 +1,28 @@
-using System;
-using System.Linq;
 using System.ServiceModel;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using PokemonAPi.Repositories;
 using PokemonApi.Dtos;
 using PokemonApi.Models;
+using PokemonApi.Mappers;
+using PokemonApi.Repositories;
 
-namespace PokemonApi.Services
+namespace PokemonAPi.Services;
+
+public class BooksService : IBooksService
 {
-    public class BookService : IBookService
+    private readonly IBooksRepository _BooksRepository;
+
+    public BooksService(IBooksRepository booksRepository)
     {
-        private readonly DbContext _context;  // Usamos DbContext directamente si no tienes un contexto específico.
-
-        public BookService(DbContext context)  // Constructor que acepta DbContext directamente.
-        {
-            _context = context;
-        }
-
-        public async Task<BooksResponseDto> GetBookById(int id, CancellationToken cancellationToken)
-        {
-            // Asumimos que la entidad `Books` está correctamente configurada en DbContext
-            var book = await _context.Set<Books>()  // Usamos Set<Books>() para obtener la DbSet de libros.
-                .Where(b => b.Id == id)
-                .Select(b => new BooksResponseDto(
-                    b.Id,
-                    b.Title,
-                    b.Author,
-                    b.PublishedDate
-                ))
-                .FirstOrDefaultAsync(cancellationToken);
-
-            if (book == null)
-            {
-                // Utilizamos FaultException directamente con un solo argumento de tipo string.
-                throw new FaultException("Book not found.");
-            }
-
-            return book;
-        }
+        _BooksRepository = booksRepository;
     }
+
+
+    public async Task<BooksResponseDto> GetBookById(int id, CancellationToken cancellationToken)
+    {
+        var book = await _BooksRepository.GetBookByIdAsync(id, cancellationToken);
+
+        return book.ToDto();
+
+    }
+
 }

@@ -15,7 +15,7 @@ builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 builder.Services.AddSingleton<IHobbiesRespository, HobbiesRepository>();
 builder.Services.AddScoped<IHobbieService, HobbieService>();
 builder.Services.AddSingleton<IBooksRepository, BooksRepository>();
-builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBooksService, BooksService>();
 
 
 
@@ -26,7 +26,7 @@ var app = builder.Build();
 
 app.UseSoapEndpoint<IPokemonService>("/PokemonService.svc", new SoapEncoderOptions());
 app.UseSoapEndpoint<IHobbieService>("/HobbieService.svc", new SoapEncoderOptions());
-app.UseSoapEndpoint<IBookService>("/BooksService.svc", new SoapEncoderOptions());
+app.UseSoapEndpoint<IBooksService>("/BooksService.svc", new SoapEncoderOptions());
 
 
 app.Run();

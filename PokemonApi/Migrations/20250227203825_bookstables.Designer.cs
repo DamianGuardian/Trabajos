@@ -11,8 +11,8 @@ using PokemonApi.Infrastructure;
 namespace PokemonApi.Migrations
 {
     [DbContext(typeof(RelationalDbContext))]
-    [Migration("20250226234132_BookMigration")]
-    partial class BookMigration
+    [Migration("20250227203825_bookstables")]
+    partial class bookstables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,9 +24,9 @@ namespace PokemonApi.Migrations
 
             modelBuilder.Entity("PokemonApi.Infrastructure.Entities.BooksEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Author")
                         .IsRequired()

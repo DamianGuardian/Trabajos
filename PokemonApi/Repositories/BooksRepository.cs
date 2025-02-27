@@ -3,8 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PokemonApi.Infrastructure;
 using PokemonApi.Mappers;
 
-namespace PokemonApi.Repositories
-{
+namespace PokemonApi.Repositories;
     public class BooksRepository : IBooksRepository
     {
         private readonly RelationalDbContext _context;
@@ -28,9 +27,4 @@ namespace PokemonApi.Repositories
             return book.ToModel(); // Asumimos que hay un método ToModel() que convierte la entidad a modelo.
         }
 
-        public Task<Books> GetBookByIdAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
     }
-}

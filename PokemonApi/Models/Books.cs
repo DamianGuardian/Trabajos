@@ -8,5 +8,16 @@ public class Books
     public string Title { get; set; }
     public string Author { get; set; }
     public DateTime PublishedDate { get; set; }
+
+    public BooksResponseDto ToDto()
+    {
+        return new BooksResponseDto
+        {
+            Id = Id,
+            Title = Title,
+            Author = Author,
+            PublishedDate = PublishedDate
+        };
+    }
     
 }

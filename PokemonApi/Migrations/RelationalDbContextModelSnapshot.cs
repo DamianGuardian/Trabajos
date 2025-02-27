@@ -21,9 +21,9 @@ namespace PokemonApi.Migrations
 
             modelBuilder.Entity("PokemonApi.Infrastructure.Entities.BooksEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Author")
                         .IsRequired()
