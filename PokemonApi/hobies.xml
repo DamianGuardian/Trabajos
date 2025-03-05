@@ -1,0 +1,279 @@
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://hobbie-api/hobbie-service" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://hobbie-api/hobbie-service" name="DamianHobbiesService">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://hobbie-api/hobbie-service">
+<xs:import namespace="http://pokemonapi/Hobies-service"/>
+<xs:import namespace="http://pokemonapi/hobies-service"/>
+<xs:import namespace="http://PokemonApi/HobiesService"/>
+<xs:element name="GetHobbieById">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="id" type="ser:guid"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetHobbieByIdResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element xmlns:q1="http://pokemonapi/Hobies-service" minOccurs="1" name="GetHobbieByIdResult" nillable="true" type="q1:HobiesResponseDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="DeleteHobbieById">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="id" type="ser:guid"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="DeleteHobbieByIdResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="DeleteHobbieByIdResult" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetHobbieByName">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="1" name="name" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetHobbieByNameResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element xmlns:q2="http://pokemonapi/Hobies-service" minOccurs="1" name="GetHobbieByNameResult" nillable="true" type="q2:ArrayOfHobiesResponseDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="CreateHobbie">
+<xs:complexType>
+<xs:sequence>
+<xs:element xmlns:q3="http://pokemonapi/hobies-service" minOccurs="1" name="createHobiesDto" nillable="true" type="q3:CreateHobiesDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="CreateHobbieResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element xmlns:q4="http://pokemonapi/Hobies-service" minOccurs="1" name="CreateHobbieResult" nillable="true" type="q4:HobiesResponseDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateHobbie">
+<xs:complexType>
+<xs:sequence>
+<xs:element xmlns:q5="http://pokemonapi/hobies-service" minOccurs="1" name="hobbieDto" nillable="true" type="q5:UpdatePokemonDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateHobbieResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element xmlns:q6="http://pokemonapi/Hobies-service" minOccurs="1" name="UpdateHobbieResult" nillable="true" type="q6:HobiesResponseDto"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/">
+<xs:element name="anyType" nillable="true" type="xs:anyType"/>
+<xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+<xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+<xs:element name="boolean" nillable="true" type="xs:boolean"/>
+<xs:element name="byte" nillable="true" type="xs:byte"/>
+<xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+<xs:element name="decimal" nillable="true" type="xs:decimal"/>
+<xs:element name="double" nillable="true" type="xs:double"/>
+<xs:element name="float" nillable="true" type="xs:float"/>
+<xs:element name="int" nillable="true" type="xs:int"/>
+<xs:element name="long" nillable="true" type="xs:long"/>
+<xs:element name="QName" nillable="true" type="xs:QName"/>
+<xs:element name="short" nillable="true" type="xs:short"/>
+<xs:element name="string" nillable="true" type="xs:string"/>
+<xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+<xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+<xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+<xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+<xs:element name="char" nillable="true" type="tns:char"/>
+<xs:simpleType name="char">
+<xs:restriction base="xs:int"/>
+</xs:simpleType>
+<xs:element name="duration" nillable="true" type="tns:duration"/>
+<xs:simpleType name="duration">
+<xs:restriction base="xs:duration">
+<xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+<xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+<xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="guid" nillable="true" type="tns:guid"/>
+<xs:simpleType name="guid">
+<xs:restriction base="xs:string">
+<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:attribute name="FactoryType" type="xs:QName"/>
+<xs:attribute name="Id" type="xs:ID"/>
+<xs:attribute name="Ref" type="xs:IDREF"/>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://pokemonapi/Hobies-service" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://pokemonapi/Hobies-service">
+<xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
+<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="HobiesResponseDto">
+<xs:sequence>
+<xs:element minOccurs="0" name="Id" type="ser:guid"/>
+<xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Top" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="HobiesResponseDto" nillable="true" type="tns:HobiesResponseDto"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="ArrayOfHobiesResponseDto">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="HobiesResponseDto" nillable="true" type="tns:HobiesResponseDto"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfHobiesResponseDto" nillable="true" type="tns:ArrayOfHobiesResponseDto"/>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://pokemonapi/hobies-service" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://pokemonapi/hobies-service">
+<xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
+<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="CreateHobiesDto">
+<xs:complexContent mixed="false">
+<xs:extension xmlns:q1="http://PokemonApi/HobiesService" base="q1:UpdateHobiesDto">
+<xs:sequence/>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="CreateHobiesDto" nillable="true" type="tns:CreateHobiesDto"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="UpdatePokemonDto">
+<xs:complexContent mixed="false">
+<xs:extension xmlns:q2="http://PokemonApi/HobiesService" base="q2:UpdateHobiesDto">
+<xs:sequence>
+<xs:element minOccurs="0" name="Id" type="ser:guid"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="UpdatePokemonDto" nillable="true" type="tns:UpdatePokemonDto"/>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://PokemonApi/HobiesService" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://PokemonApi/HobiesService">
+<xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
+<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+<xs:complexType xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" name="UpdateHobiesDto">
+<xs:sequence>
+<xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Top" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="UpdateHobiesDto" nillable="true" type="tns:UpdateHobiesDto"/>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="DamianHobbiesService_GetHobbieById_InputMessage">
+<wsdl:part name="parameters" element="tns:GetHobbieById"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_GetHobbieById_OutputMessage">
+<wsdl:part name="parameters" element="tns:GetHobbieByIdResponse"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_DeleteHobbieById_InputMessage">
+<wsdl:part name="parameters" element="tns:DeleteHobbieById"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_DeleteHobbieById_OutputMessage">
+<wsdl:part name="parameters" element="tns:DeleteHobbieByIdResponse"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_GetHobbieByName_InputMessage">
+<wsdl:part name="parameters" element="tns:GetHobbieByName"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_GetHobbieByName_OutputMessage">
+<wsdl:part name="parameters" element="tns:GetHobbieByNameResponse"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_CreateHobbie_InputMessage">
+<wsdl:part name="parameters" element="tns:CreateHobbie"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_CreateHobbie_OutputMessage">
+<wsdl:part name="parameters" element="tns:CreateHobbieResponse"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_UpdateHobbie_InputMessage">
+<wsdl:part name="parameters" element="tns:UpdateHobbie"/>
+</wsdl:message>
+<wsdl:message name="DamianHobbiesService_UpdateHobbie_OutputMessage">
+<wsdl:part name="parameters" element="tns:UpdateHobbieResponse"/>
+</wsdl:message>
+<wsdl:portType name="DamianHobbiesService">
+<wsdl:operation name="GetHobbieById">
+<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/GetHobbieById" message="tns:DamianHobbiesService_GetHobbieById_InputMessage"/>
+<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/GetHobbieByIdResponse" message="tns:DamianHobbiesService_GetHobbieById_OutputMessage"/>
+</wsdl:operation>
+<wsdl:operation name="DeleteHobbieById">
+<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/DeleteHobbieById" message="tns:DamianHobbiesService_DeleteHobbieById_InputMessage"/>
+<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/DeleteHobbieByIdResponse" message="tns:DamianHobbiesService_DeleteHobbieById_OutputMessage"/>
+</wsdl:operation>
+<wsdl:operation name="GetHobbieByName">
+<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/GetHobbieByName" message="tns:DamianHobbiesService_GetHobbieByName_InputMessage"/>
+<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/GetHobbieByNameResponse" message="tns:DamianHobbiesService_GetHobbieByName_OutputMessage"/>
+</wsdl:operation>
+<wsdl:operation name="CreateHobbie">
+<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/CreateHobbie" message="tns:DamianHobbiesService_CreateHobbie_InputMessage"/>
+<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/CreateHobbieResponse" message="tns:DamianHobbiesService_CreateHobbie_OutputMessage"/>
+</wsdl:operation>
+<wsdl:operation name="UpdateHobbie">
+<wsdl:input wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/UpdateHobbie" message="tns:DamianHobbiesService_UpdateHobbie_InputMessage"/>
+<wsdl:output wsam:Action="http://hobbie-api/hobbie-service/DamianHobbiesService/UpdateHobbieResponse" message="tns:DamianHobbiesService_UpdateHobbie_OutputMessage"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="BasicHttpBinding_DamianHobbiesService" type="tns:DamianHobbiesService">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="GetHobbieById">
+<soap:operation soapAction="http://hobbie-api/hobbie-service/DamianHobbiesService/GetHobbieById" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="DeleteHobbieById">
+<soap:operation soapAction="http://hobbie-api/hobbie-service/DamianHobbiesService/DeleteHobbieById" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="GetHobbieByName">
+<soap:operation soapAction="http://hobbie-api/hobbie-service/DamianHobbiesService/GetHobbieByName" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CreateHobbie">
+<soap:operation soapAction="http://hobbie-api/hobbie-service/DamianHobbiesService/CreateHobbie" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="UpdateHobbie">
+<soap:operation soapAction="http://hobbie-api/hobbie-service/DamianHobbiesService/UpdateHobbie" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="DamianHobbiesService">
+<wsdl:port name="BasicHttpBinding_DamianHobbiesService" binding="tns:BasicHttpBinding_DamianHobbiesService">
+<soap:address location="http://localhost:8088/HobbieService.svc"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
