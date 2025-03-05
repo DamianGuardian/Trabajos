@@ -24,6 +24,11 @@ public async Task DeleteAsync(Pokemon pokemon, CancellationToken cancellationTok
     public async Task AddAsync(Pokemon pokemon, CancellationToken cancellationToken) {
         await _context.Pokemons.AddAsync(pokemon.ToEntity(), cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
+
+    }
+    public async Task UpdateAsync(Pokemon pokemon, CancellationToken cancellationToken) {
+        _context.Pokemons.Update(pokemon.ToEntity());
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
 }

@@ -51,4 +51,24 @@ public static class PokemonMappers {
             }
         };
     }
+
+    public static Pokemon ToModel(this CreatePokemonDto pokemon){
+
+        return new Pokemon {
+            Id = Guid.NewGuid(),
+            Name = pokemon.Name,
+            Type =pokemon.Type,
+            Level = pokemon.Level,
+            Stats = pokemon.Stats.ToModel()
+
+        };
+    }
+
+    public static Stats ToModel(this StatsDto stats){
+        return new Stats {
+            Attack = stats.Attack,
+            Defense = stats.Defense,
+            Speed = stats.Speed
+        };
+    }
 }
