@@ -2,6 +2,7 @@ using PokemonApi.Dtos;
 using PokemonApi.Infrastructure.Entities;
 using PokemonApi.Models;
 
+
 namespace PokemonApi.Mappers;
 
 public static class HobiesMappers
@@ -31,6 +32,17 @@ public static class HobiesMappers
         };
     }
 
+         public static Hobies ToModel(this CreateHobiesDto hobies)
+    {
+        return new Hobies
+        {
+            Id = Guid.NewGuid(),
+            Name = hobies.Name,
+            Top = hobies.Top
+            
+        };
+    }
+
         public static HobiesResponseDto ToDto(this Hobies hobies)
     {
         return new HobiesResponseDto
@@ -40,4 +52,5 @@ public static class HobiesMappers
             Top = hobies.Top
         };
     }
-    }
+
+}

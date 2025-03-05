@@ -13,6 +13,7 @@ namespace PokemonApi.Infrastructure
         
         public RelationalDbContext(DbContextOptions<RelationalDbContext> options) : base(options)
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

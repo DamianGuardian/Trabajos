@@ -1,8 +1,5 @@
 using System.Runtime.Serialization;
 using PokemonAPi.Dtos;
-
-
-
 namespace PokemonApi.Dtos;
 
 

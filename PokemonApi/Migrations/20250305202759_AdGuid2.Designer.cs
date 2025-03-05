@@ -11,8 +11,8 @@ using PokemonApi.Infrastructure;
 namespace PokemonApi.Migrations
 {
     [DbContext(typeof(RelationalDbContext))]
-    [Migration("20250303231443_Tablamigrations")]
-    partial class Tablamigrations
+    [Migration("20250305202759_AdGuid2")]
+    partial class AdGuid2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,9 +48,9 @@ namespace PokemonApi.Migrations
 
             modelBuilder.Entity("PokemonApi.Infrastructure.Entities.HobiesEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -45,9 +45,9 @@ namespace PokemonApi.Migrations
 
             modelBuilder.Entity("PokemonApi.Infrastructure.Entities.HobiesEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()

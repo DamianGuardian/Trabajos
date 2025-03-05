@@ -6,7 +6,7 @@ namespace PokemonApi.Dtos;
 public class HobiesResponseDto
 {
     [DataMember(Name = "Id", Order = 1)]
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     [DataMember(Name = "Name", Order = 2)]
     public string Name { get; set; }

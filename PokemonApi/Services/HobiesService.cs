@@ -3,6 +3,7 @@ using PokemonAPi.Repositories;
 using PokemonApi.Dtos;
 using PokemonApi.Models;
 using PokemonApi.Mappers;
+using PokemonApi.Validators;
 
 namespace PokemonAPi.Services;
 
@@ -15,7 +16,7 @@ public class HobbieService : IHobbieService
         _hobbieRepository = hobbieRepository;
     }
 
-    public async Task<HobiesResponseDto> GetHobbieById(int id, CancellationToken cancellationToken)
+    public async Task<HobiesResponseDto> GetHobbieById(Guid id, CancellationToken cancellationToken)
     {
         var hobie = await _hobbieRepository.GetHobbyByIdAsync(id, cancellationToken);
         if (hobie is null)
@@ -27,7 +28,7 @@ public class HobbieService : IHobbieService
     }
 
 
-    public async Task<bool> DeleteHobbieById(int id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteHobbieById(Guid id, CancellationToken cancellationToken)
     {
         var hobbie = await _hobbieRepository.GetHobbyByIdAsync(id, cancellationToken);
         if (hobbie is null)
@@ -55,6 +56,40 @@ public class HobbieService : IHobbieService
         
         return hobbies.Select(h => h.ToDto()).ToList();
 
+        
+
     }
+
+ public async Task<HobiesResponseDto> CreateHobbie(CreateHobiesDto createHobiesDto, CancellationToken cancellationToken)
+{
+    var hobbieToCreate = createHobiesDto.ToModel();
+
+    hobbieToCreate.ValidateName().ValidateTop();
+
+    await _hobbieRepository.AddAsync(hobbieToCreate, cancellationToken);
+    return hobbieToCreate.ToDto();
+}
+
+public async Task<HobiesResponseDto> UpdateHobbie(UpdateHobiesDto hobbieDto, CancellationToken cancellationToken)
+{
+    var hobbieList = await _hobbieRepository.GetAllAsync(cancellationToken);
+    var hobbieToUpdate = hobbieList.FirstOrDefault(h => h.Id == hobbieDto.Id);
+
+    if (hobbieToUpdate is null)
+    {
+        throw new FaultException("Hobbie not found :(");
+    }
+
+    // Aplicar validaciones
+    hobbieToUpdate = hobbieToUpdate.ValidateId().ValidateName().ValidateTop();
+
+    // Actualizar datos con la nueva información del DTO
+    hobbieToUpdate.Name = hobbieDto.Name;
+    hobbieToUpdate.Top = hobbieDto.Top;
+
+    await _hobbieRepository.UpdateAsync(hobbieToUpdate, cancellationToken);
+    return hobbieToUpdate.ToDto();
+}
+
 
 }
