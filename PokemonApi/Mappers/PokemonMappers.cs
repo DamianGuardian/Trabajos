@@ -1,48 +1,74 @@
 using PokemonApi.Dtos;
-using PokemonApi.Infrastructure;
+using PokemonApi.Infrastructure.Entities;
 using PokemonApi.Models;
-namespace PokemonApi.Mapers;
 
-public static class PokemonMapper
-{
-    public static Pokemon ToModel(this PokemonEntity pokemonEntity)
-{
-    if (pokemonEntity == null) throw new ArgumentNullException(nameof(pokemonEntity));
+namespace PokemonApi.Mappers;
 
-    return new Pokemon
-    {
-        Id = pokemonEntity.Id,
-        Name = pokemonEntity.Name,
-        Type = pokemonEntity.Type,
-        Level = pokemonEntity.Level,
-        Stats = new Stats
-        {
-            Attack = pokemonEntity.Attack,
-            Defense = pokemonEntity.Defense,
-            Speed = pokemonEntity.Speed
-        }
-    };
-}
-
-
-    public static PokemonResponseDto ToDto(this Pokemon pokemon){
-        return new PokemonResponseDto{
+public static class PokemonMappers {
+    public static PokemonEntity ToEntity(this Pokemon pokemon) {
+        return new PokemonEntity {
             Id = pokemon.Id,
-            Name = pokemon.Name,
             Type = pokemon.Type,
+            Name = pokemon.Name,
             Level = pokemon.Level,
-            Stats = new statsDto {
+            Health = pokemon.Health,
+            Attack = pokemon.Stats.Attack,
+            Defense = pokemon.Stats.Defense,
+            Speed = pokemon.Stats.Speed
+        };
+    } // <- Llave de cierre añadida aquí
+
+    public static Pokemon ToModel(this PokemonEntity entity) {
+        if(entity == null) {
+            return null;
+        }
+
+        return new Pokemon {
+            Id = entity.Id,
+            Type = entity.Type,
+            Name = entity.Name,
+            Level = entity.Level,
+            Health = entity.Health,
+            Stats = new Stats {
+                Attack = entity.Attack,
+                Defense = entity.Defense,
+                Speed = entity.Speed
+            }
+        };
+    }
+
+    public static PokemonResponseDto ToDto(this Pokemon pokemon) {
+        return new PokemonResponseDto {
+            Id = pokemon.Id,
+            Level = pokemon.Level,
+            Type = pokemon.Type,
+            Name = pokemon.Name,
+            Health = pokemon.Health,
+            Stats = new StatsDto {
                 Attack = pokemon.Stats.Attack,
                 Defense = pokemon.Stats.Defense,
                 Speed = pokemon.Stats.Speed
             }
         };
     }
-}
 
-internal class StatsDto
-{
-    public int Attack { get; set; }
-    public int Defense { get; set; }
-    public int Speed { get; set; }
+    public static Pokemon ToModel(this CreatePokemonDto pokemon){
+
+        return new Pokemon {
+            Id = Guid.NewGuid(),
+            Name = pokemon.Name,
+            Type =pokemon.Type,
+            Level = pokemon.Level,
+            Stats = pokemon.Stats.ToModel()
+
+        };
+    }
+
+    public static Stats ToModel(this StatsDto stats){
+        return new Stats {
+            Attack = stats.Attack,
+            Defense = stats.Defense,
+            Speed = stats.Speed
+        };
+    }
 }
