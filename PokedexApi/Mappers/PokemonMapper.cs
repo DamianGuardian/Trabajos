@@ -1,23 +1,21 @@
-using PokedexApi.Dtos;
 using PokedexApi.Models;
-namespace static class PokemonMapper
+using PokedexApi.Dtos;
+
+namespace PokedexApi.Mappers;
+
+public static class PokemonMappers
 {
-    public static PokemonResponse MapToPokemonResponse(Pokemon pokemon)
-    {
-        return new PokemonResponse
-        {
+    public static PokemonResponse ToDto(this Pokemon pokemon) {
+        return new PokemonResponse {
             Id = pokemon.Id,
             Name = pokemon.Name,
             Type = pokemon.Type,
             Level = pokemon.Level,
-            Stats = new StatsResponse
-            {
+            Stats = new StatsResponse {
                 Attack = pokemon.Attack,
-                Defense = pokemon.Defense
+                Defense = pokemon.Defense,
                 Speed = pokemon.Speed
             }
-        };
-    }
-    
-   
+        };
+    }
 }

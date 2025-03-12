@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PokedexApi.Services;
-using PokemonApi.Dtos;
 using PokedexApi.Mappers;
+using PokedexApi.Dtos;
 
 
 namespace PokedexApi.AddControllers;
@@ -20,14 +20,14 @@ public class PokemonsController : ControllerBase
 
     //localhost/api/v1/pokemons/12971293-1283812
   [HttpGet("{id}")]
-  public async task<ActionResult<PokemonResponse>> GetPokemonById(Guid id, CancellationToken cancellationToken)
+  public async Task<ActionResult<PokemonResponse>> GetPokemonById(Guid id, CancellationToken cancellationToken)
   {
      var pokemon = await _pokemonService.GetPokemonById(id, cancellationToken);
      if (pokemon is null){
      return NotFound();
      }
      return Ok(pokemon.ToDto());
-  }
-  
+  }
+  
 
 }
