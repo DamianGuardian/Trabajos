@@ -3,8 +3,7 @@ using System.Runtime.Serialization;
 namespace PokemonApi.Dtos;
 
 [DataContract(Name = "StatsDto", Namespace = "http://pokemonapi/pokemon-service")]
-public class statsDto
-{
+public class StatsDto {
     [DataMember(Name = "attack", Order = 1)]
     public int Attack { get; set; }
 

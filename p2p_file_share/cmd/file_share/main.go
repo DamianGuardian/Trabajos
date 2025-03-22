@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DamianGuardian/p2p_file_share/internal/peer"
+	"github.com/LordGovenate/p2p_file_share/internal/peer"
 )
 
 func main() {

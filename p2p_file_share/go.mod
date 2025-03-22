@@ -1,4 +1,3 @@
+module github.com/LordGovenate/p2p_file_share
 
-module github.com/DamianGuardian/p2p_file_share
-
-go 1.23.5
+go 1.23.4

@@ -1,3 +1,5 @@
-module github.com/DamianGuardian/p2p_chat
+module github.com/LordGovenate/p2p_chat
 
-go 1.23.5
+go 1.23.4
+
+//Este archivo se utiliza para gestionar las dependencias y la versión de Go utilizada en el proyecto.
