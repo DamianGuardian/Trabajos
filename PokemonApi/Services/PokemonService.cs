@@ -68,5 +68,14 @@ namespace PokemonApi.Services
 
     }
 
+        public async Task<PokemonResponseDto> GetPokemonByName(string name, CancellationToken cancellationToken)
+        {
+            var pokemon = await _pokemonRepository.GetByNameAsync(name, cancellationToken);
+            if (pokemon is null)
+            {
+                throw new FaultException("Pokemon not found :(");
+            }
+            return pokemon.ToDto();
+        }
 }
 }

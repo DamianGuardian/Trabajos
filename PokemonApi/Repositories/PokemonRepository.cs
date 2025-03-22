@@ -31,4 +31,8 @@ public async Task DeleteAsync(Pokemon pokemon, CancellationToken cancellationTok
         await _context.SaveChangesAsync(cancellationToken);
     }
 
+    public async Task<Pokemon> GetByNameAsync(string name, CancellationToken cancellationToken) {
+        var Pokemon = await _context.Pokemons.AsNoTracking().FirstOrDefaultAsync(s=>s.Name == name, cancellationToken);
+        return Pokemon.ToModel();
+    }
 }

@@ -1,3 +1,4 @@
+using PokedexApi.Repositories;
 using PokedexApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,12 +6,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddScoped<IPokemonService, pokemonService>();
+builder.Services.AddScoped<IPokemonService, PokemonService>();
+builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.MapControllers();

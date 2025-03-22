@@ -1,0 +1,28 @@
+using System.Runtime.Serialization;
+using PokemonApi.Dtos;
+
+namespace PokemonAPi.Dtos;
+
+[DataContract(Name = "UpdatePokemonDto", Namespace = "http://PokemonApi/PokemonService")]
+[KnownType(typeof(CreatePokemonDto))]
+[KnownType(typeof(UpdatePokemonDto))]
+
+public class PokemonCommomDto{
+    
+[DataMember(Name = "Name", Order = 1)]
+    public required string Name { get; set; }
+
+    [DataMember(Name = "Type", Order = 2)]
+    public required string Type { get; set; }
+
+    [DataMember(Name = "Level", Order = 3)]
+    public int Level { get; set; }
+
+    [DataMember(Name = "Health", Order = 4)]
+    public int Health { get; set; }
+    
+    [DataMember(Name = "Stats", Order = 5)]
+    public required StatsDto Stats { get; set; }
+
+
+}

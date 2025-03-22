@@ -8,4 +8,6 @@ public interface IPokemonRepository {
     Task AddAsync(Pokemon pokemon, CancellationToken cancellationToken);
 
     Task UpdateAsync(Pokemon pokemon, CancellationToken cancellationToken);
+
+    Task<Pokemon> GetByNameAsync(string name, CancellationToken cancellationToken);
 }

@@ -1,12 +1,25 @@
-namespace PokemonApi.Dtos
-{
-    public class PokemonResponseDto
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public int Level { get; set; }
-        public StatsDto Stats { get; set; }
-        public int Health { get; set; }
-    }
+using System.Runtime.Serialization;
+
+namespace PokemonApi.Dtos;
+
+    [DataContract(Name = "PokemonResponseDto", Namespace = "http://PokemonApi/PokemonService")]
+
+   public class PokemonResponseDto{
+    [DataMember(Name = "Id", Order = 1)]
+    public Guid Id { get; set; }
+    
+    [DataMember(Name = "Name", Order = 2)]
+    public string Name { get; set; }
+
+    [DataMember(Name = "Type", Order = 3)]
+    public string Type { get; set; }
+
+    [DataMember(Name = "Level", Order = 4)]
+    public int Level { get; set; }
+
+    [DataMember(Name = "Health", Order = 5)]
+    public int Health { get; set; }
+    
+    [DataMember(Name = "Stats", Order = 6)]
+    public StatsDto Stats { get; set; }
 }
