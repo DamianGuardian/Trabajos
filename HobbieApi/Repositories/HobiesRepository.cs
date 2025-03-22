@@ -1,5 +1,5 @@
 using System.ServiceModel;
-using HobbieApi.Controllers;
+
 using HobiesApi.Infrastructure.Soap.Contracts;
 using PokemonAPi.Services;
 
@@ -46,7 +46,7 @@ namespace PokedexApi.Repositories
                 var hobby = await _hobbyService.GetHobbieById(id, cancellationToken);
                 return hobby.ToModel();
             }
-            catch (FaultException ex) when (ex.Message == "Hobby not found :(")
+            catch (System.ServiceModel.FaultException ex) when (ex.Message == "Hobby not found :(")
             {
                 _logger.LogWarning(ex, "Failed to get hobby with id: {id}", id);
                 return null;
@@ -66,7 +66,7 @@ namespace PokedexApi.Repositories
                 var hobby = await _hobbyService.GetHobbieByName(name, cancellationToken);
                 return hobby.Select(h => h.ToModel()).Where(h => h != null).ToList();
             }
-            catch (FaultException ex) when (ex.Message == "Hobby not found :(")
+            catch (System.ServiceModel.FaultException ex) when (ex.Message == "Hobby not found :(")
             {
                 _logger.LogWarning(ex, "Failed to get hobby with name: {name}", name);
                 return new List<IHobbyRepository>();
