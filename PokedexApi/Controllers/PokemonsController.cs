@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using PokedexApi.Services;
 using PokedexApi.Mappers;
 using PokedexApi.Dtos;
+using System.Threading.Tasks;
+using System;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace PokedexApi.Controllers;
 

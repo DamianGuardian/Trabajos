@@ -1,9 +1,12 @@
-using PokedexApi.Models;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
 
 namespace PokedexApi.Services;
 public interface IHobbiesService
 {
-    Task<Hobbies?> GetHobbieById(int id, CancellationToken cancellationToken);
-    Task<List<Hobbies>> GetHobbiesByName(string name, CancellationToken cancellationToken);
+    Task<IHobbiesService?> GetHobbieById(int id, CancellationToken cancellationToken);
+    Task<List<IHobbiesService>> GetHobbiesByName(string name, CancellationToken cancellationToken);
 
 }

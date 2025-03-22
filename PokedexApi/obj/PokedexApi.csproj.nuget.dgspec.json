@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\HobbieApi\\HobbieApi.csproj": {}
+    "C:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\PokedexApi\\PokedexApi.csproj": {}
   },
   "projects": {
-    "c:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\HobbieApi\\HobbieApi.csproj": {
+    "C:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\PokedexApi\\PokedexApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\HobbieApi\\HobbieApi.csproj",
-        "projectName": "HobbieApi",
-        "projectPath": "c:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\HobbieApi\\HobbieApi.csproj",
+        "projectUniqueName": "C:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\PokedexApi\\PokedexApi.csproj",
+        "projectName": "PokedexApi",
+        "projectPath": "C:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\PokedexApi\\PokedexApi.csproj",
         "packagesPath": "C:\\Users\\reydr\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\HobbieApi\\obj\\",
+        "outputPath": "C:\\Users\\reydr\\OneDrive\\Documentos\\GitHub\\Trabajos\\PokedexApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\reydr\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -47,17 +47,9 @@
               "target": "Package",
               "version": "[8.0.13, )"
             },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[9.0.3, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
-            },
-            "System.ServiceModel.Primitives": {
-              "target": "Package",
-              "version": "[8.1.2, )"
             }
           },
           "imports": [
