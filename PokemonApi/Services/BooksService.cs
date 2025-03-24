@@ -1,5 +1,4 @@
 using System.ServiceModel;
-using PokemonAPi.Repositories;
 using PokemonApi.Dtos;
 using PokemonApi.Models;
 using PokemonApi.Mappers;

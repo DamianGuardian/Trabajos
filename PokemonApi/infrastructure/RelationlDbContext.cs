@@ -7,10 +7,11 @@ namespace PokemonApi.Infrastructure
     public class RelationalDbContext : DbContext
     {
         public DbSet<PokemonEntity> Pokemons { get; set; }
-        public DbSet<HobiesEntity> Hobies { get; set; }
+        public DbSet<HobbiesEntity> Hobbies { get; set; }
 
         public DbSet<BooksEntity> Books { get; set; }
-        
+        public object Hobies { get; internal set; }
+
         public RelationalDbContext(DbContextOptions<RelationalDbContext> options) : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
@@ -31,7 +32,7 @@ namespace PokemonApi.Infrastructure
                 entity.Property(s => s.Speed).IsRequired();
             });
 
-            modelBuilder.Entity<HobiesEntity>(entity =>
+            modelBuilder.Entity<HobbiesEntity>(entity =>
             {
                 entity.HasKey(s => s.Id);
                 entity.Property(s => s.Name).IsRequired().HasMaxLength(100);

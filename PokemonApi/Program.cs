@@ -3,30 +3,29 @@ using PokemonApi.Infrastructure;
 using PokemonApi.Services;
 using SoapCore;
 using PokemonApi.Repositories;
-using PokemonAPi.Repositories;
 using PokemonAPi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSoapCore();
-//host.docker.internal
-//AddSingleton
-builder.Services.AddSingleton<IPokemonService,PokemonService>();
+
+// Cambiar a Scoped
+builder.Services.AddSingleton<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
-builder.Services.AddSingleton<IHobbiesRespository, HobbiesRepository>();
-builder.Services.AddScoped<IHobbieService, HobbieService>();
+builder.Services.AddSingleton<IHobbiesRepository, HobbiesRepository>();
+builder.Services.AddScoped<IHobbiesService, HobiesService>();
 builder.Services.AddSingleton<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IBooksService, BooksService>();
 
-
-
-builder.Services.AddDbContext<RelationalDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
+// Configurar DbContext
+builder.Services.AddDbContext<RelationalDbContext>(options => 
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 var app = builder.Build();
 
+// Configurar endpoints de SOAP
 app.UseSoapEndpoint<IPokemonService>("/PokemonService.svc", new SoapEncoderOptions());
-app.UseSoapEndpoint<IHobbieService>("/HobbieService.svc", new SoapEncoderOptions());
+app.UseSoapEndpoint<IHobbiesService>("/HobbieService.svc", new SoapEncoderOptions());
 app.UseSoapEndpoint<IBooksService>("/BooksService.svc", new SoapEncoderOptions());
-
 
 app.Run();

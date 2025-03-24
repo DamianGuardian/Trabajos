@@ -1,5 +1,7 @@
 using PokedexApi.Repositories;
 using PokedexApi.Services;
+using PokemonApi.Repositories;
+using PokemonApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+builder.Services.AddScoped<IHobbiesService, HobiesService>();
+builder.Services.AddScoped<IHobbiesRepository, HobbiesRepository>();
 
 var app = builder.Build();
 
