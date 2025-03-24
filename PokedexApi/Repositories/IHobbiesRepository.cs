@@ -1,11 +1,12 @@
+
 using PokemonApi.Models;
 
-namespace PokemonApi.Repositories;
+namespace PokedexApi.Repositories;
 
-public interface IHobbiesRepository {
-    Task<Hobbies> GetHobbyById(int id, CancellationToken cancellationToken);
-    Task DeleteHobby(Hobbies hobbies, CancellationToken cancellationToken);
-    Task<List<Hobbies>> GetHobbiesByName(string name, CancellationToken cancellationToken);
-    Task AddAsync(Hobbies hobbies, CancellationToken cancellationToken);
-    Task UpdateAsync(Hobbies hobbies, CancellationToken cancellationToken);
+public interface IHobbiesRepository
+{
+    // Método para obtener un hobby por su ID
+    Task<Hobbies> GetHobbyBYIdAsync(int id, CancellationToken cancellationToken);
+    Task <List<Hobbies>> GetHobbiesByNameAsync (string name, CancellationToken cancellationToken);
+
 }

@@ -16,9 +16,9 @@ namespace PokemonApi.Models;
 
 internal class RelationalDbContext
 {
-    public object Hobbies { get; internal set; }
+    public required object Hobbies { get; internal set; }
 
-    internal async Task SaveChangesAsync(CancellationToken cancellationToken)
+    internal void SaveChanges(CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
