@@ -41,5 +41,18 @@ namespace PokedexApi.Controllers
             }
             return Ok(hobbies.Select(h => h.ToDto()).ToList());
         }
-}
+
+        // localhost/api/v1/hobbies/delete/1
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteHobbies(int id, CancellationToken cancellationToken)
+        {
+            var result = await _hobbiesService.DeleteHobbies(id, cancellationToken);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+}        
 }

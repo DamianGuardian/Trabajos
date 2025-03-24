@@ -1,5 +1,6 @@
 using System.ServiceModel;
 using PokemonApi.Dtos;
+using PokemonApi.Models;
 
 namespace PokedexApi.Infrastructure.Soap.Contracts;
 
@@ -21,5 +22,6 @@ namespace PokedexApi.Infrastructure.Soap.Contracts;
 
         [OperationContract]
         Task<HobbiesResponseDto> UpdateHobbies(UpdateHobbiesDto hobbies, CancellationToken cancellationToken);
-        
-    }
+    Task<List<Hobbies>?> GetHobbiesByType(string type, CancellationToken cancellationToken);
+    Task<List<Hobbies>?> GetHobbiesByTypeAsync(string type);
+}

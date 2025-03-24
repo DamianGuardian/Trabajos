@@ -14,7 +14,7 @@ public class HobbiesService : IHobbiesService
 
     public async Task<Hobbies?> GetHobbieById(int id, CancellationToken cancellationToken)
     {
-        return await _hobbieRepository.GetHobbyBYIdAsync(id, cancellationToken);
+        return await _hobbieRepository.GetHobbyByIdAsync(id, cancellationToken);
     }
 
     public async Task<List<Hobbies>> GetHobbiesByName(string name, CancellationToken cancellationToken)
@@ -22,5 +22,10 @@ public class HobbiesService : IHobbiesService
     var response = await _hobbieRepository.GetHobbiesByNameAsync(name, cancellationToken);
         return response?.ToList() ?? new List<Hobbies>();
     }
-
+    
+    public async Task<bool> DeleteHobbies(int id, CancellationToken cancellationToken)
+    {
+        return await _hobbieRepository.DeleteHobbies(id, cancellationToken);
+    }
+    
 }

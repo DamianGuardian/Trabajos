@@ -24,4 +24,7 @@ public interface IPokemonService
     Task<PokemonResponseDto> GetPokemonByName(string name, CancellationToken cancellationToken);
     Task GetByName(string name, CancellationToken cancellationToken);
     Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<bool> DeletePokemonByIdAsync(int id, CancellationToken cancellationToken);
+    Task GetPokemonByIdAsync(int id, CancellationToken cancellationToken);
+    Task<IEnumerable<object>> GetPokemonByNameAsync(string name, CancellationToken cancellationToken);
 }
