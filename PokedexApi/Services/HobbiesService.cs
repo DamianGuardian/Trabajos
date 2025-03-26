@@ -14,7 +14,7 @@ public class HobbiesService : IHobbiesService
 
     public async Task<Hobbies?> GetHobbieById(int id, CancellationToken cancellationToken)
     {
-        return await _hobbieRepository.GetHobbyByIdAsync(id, cancellationToken);
+        return await _hobbieRepository.GetHobbyBYIdAsync(id, cancellationToken);
     }
 
     public async Task<List<Hobbies>> GetHobbiesByName(string name, CancellationToken cancellationToken)

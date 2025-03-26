@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using PokedexApi.Services;
 using PokedexApi.Mappers;
 using PokedexApi.Dtos;
+using PokemonAPi.Exceptions;
+using PokedexApi.Exceptions;
 
 
 namespace PokedexApi.AddControllers;
@@ -49,4 +51,36 @@ public class PokemonsController : ControllerBase
         }
         return NotFound();//404
     }
+
+    //400 - badrequest (usuario ingreso un valor incorrecto)
+    //409 - conflict (ya existe el resucrso que se quiere crear)
+    //200 - ok (objeto de respuesta pokemon creado)
+    //201 - created (pokemon creado, en headres de respuesta url de recurso creado)
+   [HttpPost]
+public async Task<ActionResult<PokemonResponse>> CreatePokemonRequest(
+    [FromBody] CreatePokemonRequest Pokemon, CancellationToken cancellationToken)
+{
+    if (Pokemon == null)
+    {
+        return BadRequest(new { message = "Invalid request data." });
+    }
+
+    try
+    {
+        var createdPokemon = await _pokemonService.CreatePokemonAsync(Pokemon.ToModel(), cancellationToken);
+        return CreatedAtAction(nameof(GetPokemonById), new { id = createdPokemon.Id }, createdPokemon.ToDto());
+    }
+    catch (PokemonAlreadyExistsException ex) // Captura cuando el Pokémon ya existe
+    {
+        return Conflict(new { message = ex.Message }); // Devuelve 409 Conflict
+    }
+    catch (PokemonValidationException ex)
+    {
+        return BadRequest(new { message = ex.Message });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { message = "An unexpected error occurred.", error = ex.Message });
+        }
+}
 }

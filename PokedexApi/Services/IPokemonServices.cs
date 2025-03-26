@@ -12,5 +12,5 @@ public interface IPokemonService
 
     public Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken);
 
-    
+    public Task<Pokemon> CreatePokemonAsync(Pokemon pokemon, CancellationToken cancellationToken);
 }

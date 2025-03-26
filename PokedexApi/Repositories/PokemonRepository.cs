@@ -2,6 +2,8 @@ using PokedexApi.Infrastructure.Soap.Contracts;
 using System.ServiceModel;
 using PokedexApi.Mappers;
 using PokemonApi.Models;
+using PokemonAPi.Exceptions;
+using PokedexApi.Exceptions;
 
 namespace PokedexApi.Repositories;
 
@@ -65,4 +67,24 @@ catch (FaultException ex)
 }
 
        }
+    
+public async Task<Pokemon> CreatePokemonAsync(Pokemon pokemon, CancellationToken cancellationToken)
+{
+    try
+    {
+        
+        var PokemonCreated = await _pokemonService.CreatePokemon(pokemon.ToSoapDto(), cancellationToken);
+        return PokemonCreated.ToModel();
+    }
+    
+    catch (FaultException ex) when (ex.Message.Contains("Pokemon"))
+    {
+        throw new PokemonValidationException(ex.Message);
+    }
+    catch (FaultException ex)
+    {
+        _logger.LogError(ex, "Error creating pokemon");
+        throw;
+    }
+}
 }
