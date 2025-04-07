@@ -67,7 +67,6 @@ catch (FaultException ex)
 }
 
        }
-    
 public async Task<Pokemon> CreatePokemonAsync(Pokemon pokemon, CancellationToken cancellationToken)
 {
     try
@@ -87,4 +86,24 @@ public async Task<Pokemon> CreatePokemonAsync(Pokemon pokemon, CancellationToken
         throw;
     }
 }
+
+public async Task UpdatePokemonAsync(Guid id, Pokemon pokemon, CancellationToken cancellationToken)
+{
+    try
+    {
+        await _pokemonService.UpdatePokemon(pokemon.ToUpdateSoapDto(), cancellationToken);
+       
+    }
+    catch (FaultException ex) when (ex.Message.Contains("Pokemon not found"))
+    {
+        throw new PokemonNotFoundException();
+    }
+    catch (FaultException ex) 
+    {
+        _logger.LogError(ex, "Error updating pokeon");
+        throw;
+       
+    }
 }
+}
+

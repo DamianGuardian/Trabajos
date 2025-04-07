@@ -4,6 +4,7 @@ using PokedexApi.Mappers;
 using PokedexApi.Dtos;
 using PokemonAPi.Exceptions;
 using PokedexApi.Exceptions;
+using PokemonAPi.Dtos;
 
 
 namespace PokedexApi.AddControllers;
@@ -82,5 +83,32 @@ public async Task<ActionResult<PokemonResponse>> CreatePokemonRequest(
     {
         return StatusCode(500, new { message = "An unexpected error occurred.", error = ex.Message });
         }
+}
+  
+   //PUT - localhost:port/api/v1/pokemons/ID
+   //404 - Not Found (No existe el pokemon con el ID que se manda)
+   //400 - Bad Request (El usuario manda un valor incorrecto)
+   //409 - Conflict (Ya existe un pokemon con el mismo nombre)
+   //204 - NoContext
+  [HttpPut("{id}")]
+public async Task<IActionResult> UpdatePokemon(Guid id, [FromBody] UpdatePokemonRequest pokemon, CancellationToken cancellationToken)
+{
+    try
+    {
+        await _pokemonService.UpdatePokemonAsync(id, pokemon.ToModel(), cancellationToken);
+        return NoContent();
+    }
+    catch (PokemonAlreadyExistsException)
+    {
+        return Conflict(new { message = $"Pokemon already exists with the name: {pokemon.Name}" });
+    }
+    catch (PokemonValidationException ex)
+    {
+        return BadRequest(new { message = ex.Message });
+    }
+    catch (PokemonNotFoundException)
+    {
+        return NotFound();
+    }
 }
 }

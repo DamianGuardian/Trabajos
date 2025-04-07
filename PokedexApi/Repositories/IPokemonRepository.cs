@@ -14,5 +14,7 @@ public interface IPokemonRepository
     Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken);
 
     Task<Pokemon> CreatePokemonAsync(Pokemon pokemon, CancellationToken cancellationToken);
+    
+    Task UpdatePokemonAsync(Guid id, Pokemon pokemon, CancellationToken cancellationToken);
 
 }

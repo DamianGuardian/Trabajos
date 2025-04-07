@@ -2,6 +2,7 @@
 using PokedexApi.Dtos;
 using PokemonApi.Dtos;
 using PokemonApi.Models;
+using PokemonAPi.Dtos;
 
 
 namespace PokedexApi.Mappers;
@@ -55,6 +56,32 @@ public static class PokemonMappers
                 Attack = pokemon.Attack,
                 Defense = pokemon.Defense,
                 Speed = pokemon.Speed
+        }
+    };
+}
+
+public static Pokemon ToModel(this UpdatePokemonRequest pokemon) {
+    return new Pokemon(
+        id: Guid.NewGuid(), // or provide an appropriate id
+        name: pokemon.Name,
+        type: pokemon.Type,
+        level: pokemon.Level,
+        attack: pokemon.Attack,
+        defense: pokemon.Defense,
+        speed: pokemon.Speed
+    );
+}
+
+public static UpdatePokemonDto ToUpdateSoapDto(this Pokemon pokemon) {
+    return new UpdatePokemonDto {
+        Id = pokemon.Id,
+        Name = pokemon.Name,
+        Type = pokemon.Type,
+        Level = pokemon.Level,
+        Stats = new StatsDto {
+            Attack = pokemon.Attack,
+            Defense = pokemon.Defense,
+            Speed = pokemon.Speed
         }
     };
 }

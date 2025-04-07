@@ -25,6 +25,6 @@ namespace PokemonApi.Models;
             Defense = defense;
             Speed = speed;
         }
-
+      
         // Existing constructors (if any)
     }
