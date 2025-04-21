@@ -1,21 +1,25 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS base
+# 🧙 Etapa base para ejecución
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS yugioh-base
 USER $APP_UID
-WORKDIR /app
+WORKDIR /duel
 EXPOSE 8080
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# 🔨 Etapa de compilación
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS yugioh-build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["PokedexApi.csproj", "./"]
-RUN dotnet restore "PokedexApi.csproj"
+COPY ["YuGiOhApi.csproj", "./"]
+RUN dotnet restore "YuGiOhApi.csproj"
 COPY . .
-WORKDIR /src
-RUN dotnet build "PokedexApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "PokedexApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:
+RUN dotnet build "YuGiOhApi.csproj" -c $BUILD_CONFIGURATION -o /duel/build
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PokedexApi.dll"]
+# ⚔️ Etapa de publicación
+FROM yugioh-build AS yugioh-publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "YuGiOhApi.csproj" -c $BUILD_CONFIGURATION -o /duel/publish
+
+# 🏁 Etapa final
+FROM yugioh-base AS final
+WORKDIR /duel
+COPY --from=yugioh-publish /duel/publish .
+ENTRYPOINT ["dotnet", "YuGiOhApi.dll"]

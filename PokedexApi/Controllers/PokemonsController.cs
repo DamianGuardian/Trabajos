@@ -5,11 +5,13 @@ using PokedexApi.Dtos;
 using PokemonAPi.Exceptions;
 using PokedexApi.Exceptions;
 using PokemonAPi.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace PokedexApi.AddControllers;
 
 [ApiController]
+[Authorize]
 [Route("api/v1/[controller]")]
 public class PokemonsController : ControllerBase
 {
@@ -23,6 +25,7 @@ public class PokemonsController : ControllerBase
 
     //localhost/api/v1/pokemons/12971293-1283812
   [HttpGet("{id}")]
+  [Authorize(Policy = "read")]
   public async Task<ActionResult<PokemonResponse>> GetPokemonById(Guid id, CancellationToken cancellationToken)
   {
     var pokemon = await _pokemonService.GetPokemonById(id, cancellationToken);
@@ -45,6 +48,7 @@ public class PokemonsController : ControllerBase
   }
 
   [HttpDelete("{id}")]
+  [Authorize(Policy = "Write")]
     public async Task<ActionResult> DeleteOokemonById(Guid id, CancellationToken cancellationToken){
         var deleted = await _pokemonService.DeletePokemonByIdAsync(id, cancellationToken);
         if (deleted){
