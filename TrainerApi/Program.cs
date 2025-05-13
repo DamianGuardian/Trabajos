@@ -1,7 +1,20 @@
-
+using MongoDB.Driver;
+using TrainerApi.Infraestructure;
 using TrainerApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+
+builder.Services.AddSingleton<IMongoDatabase>(sp =>
+{
+  var settings = builder.Configuration.
+  GetSection("MongoDB").Get<MongoDatabaseSettings>();
+  var client = new MongoClient(settings.ConnectionsString);
+  return client.GetDatabase(settings)
+
+});
+
+
 
 // Add services to the container.
 builder.Services.AddGrpc();
