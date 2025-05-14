@@ -1,22 +1,30 @@
-
-using TrainerApi.Models;
+using TrainerApi.Infrastructure.Documents; 
+using TrainerApi.Models; 
 
 namespace TrainerApi.Mappers;
 
-public static class TrainerMapper{
+public static class TrainerMapper
+{
+
     public static Trainer? ToModel(this TrainerDocument trainerDocument)
-    if (Trainer is null)
+    {
 
-}
+        if (trainerDocument == null)
+            return null;
 
-return new Trainer {
-    Id = Trainer.Id,
-    Age = Trainer.Age,
-    Name = Trainer.Name,
-    Birthdate = Trainer.Birthdate,
-    CreatedAt = Trainer.CreatedAt,
-    Medals = Trainer.Medals.Select(m => m.ToModel()).ToList()
-    Region = sbyte.Region,
-    
+        return new Trainer
+        {
+            Id = trainerDocument.Id,
+            Name = trainerDocument.Name,
+            Age = trainerDocument.Age,
+            Birthdate = trainerDocument.Birthdate,
+            CreatedAt = trainerDocument.CreatedAt,
+            Medals = trainerDocument.Medals.Select(s => new Medal
+            {
+                Region = s.Region, 
+                Type = (Models.MedalType)(int)s.Type 
+            }).ToList()
+        };
+    }
 
 }

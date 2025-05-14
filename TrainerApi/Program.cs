@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using TrainerApi.Infraestructure;
+using TrainerApi.Repositories;
 using TrainerApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddSingleton<IMongoDatabase>(sp =>
 
 });
 
-
+builder.Services.AddScoped<ITrainerRepository.  TrainerRepository
 
 // Add services to the container.
 builder.Services.AddGrpc();

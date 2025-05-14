@@ -1,26 +1,26 @@
-using System;
-
 namespace TrainerApi.Models;
 
-public class Trainer{
-
+public class Trainer
+{
     public string Id { get; set; }
     public string Name { get; set; }
-    public string Age { get; set; }
-
+    public int Age { get; set; }
     public DateTime Birthdate { get; set; }
-    public List<Medals> Medals { get; set; }
     public DateTime CreatedAt { get; set; }
+    public List<Medal> Medals { get; set; }
+
 }
 
-    public class Medals{
-        public string Region { get; set; }
+public class Medal
+{
+    public string Region { get; set; }
+    public MedalType Type { get; set; }
+}
 
-        public MedalsType Type { get; set; }   
-    }
-    public enum MedalsType{
-        Unknow = 0,
-        Gold = 1,
-        Silver = 2,
-        Bronze = 3
-    }
+public enum MedalType
+{
+    Unknown = 0,
+    Gold = 1,
+    Silver = 2,
+    Bronze = 3,
+}

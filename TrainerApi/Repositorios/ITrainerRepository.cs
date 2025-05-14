@@ -1,8 +1,8 @@
-using
+using TrainerApi.Models;
 
 namespace TrainerApi.Repositories;
 
 public interface ITrainerRepository
 {
-    Task<Trainer?> GetById
+    Task<Trainer?> GetByIdAsync(string id, CancellationToken cancellationToken);
 }

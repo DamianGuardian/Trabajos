@@ -5,6 +5,9 @@ namespace TrainerApi.Services;
 
 
 public class TrainerService : TrainerApi.TrainerService.TrainerServiceBase{
+
+    private readonly ITtainerRepository ttainerRepository
+    public 
     public override async Task<TrainerResponse> GetTrainer(TrainerByIdRequest request, ServerCallContext context)
     {
         return new TrainerResponse{
@@ -18,5 +21,13 @@ public class TrainerService : TrainerApi.TrainerService.TrainerServiceBase{
             new Medals{ Region = "JP", Type = MedalsType.Silver }
         }
     };
+}
+public override async Task<TrainerResponse> CreateTrainer(TrainerRequest request, ServerCallContext context)
+{
+   var trainer = await _trainerRepository.GetByIdAsync(request.Id, context.CancellationToken)
+   if (trainer is null){
+    throw new RcpException(new Status(new Status(StatusCode.NotFound, "Trainer not found")));
+   }
+   return trainer.ToResponse();
 }
 }

@@ -1,24 +1,24 @@
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using TrainerApi.Infrastructure.Documents;
 using TrainerApi.Models;
+using TrainerApi.Infrastructure;
+using TrainerApi.Mappers;
 
 namespace TrainerApi.Repositories;
 
 public class TrainerRepository : ITrainerRepository
 {
-   private readonly IMongoCollection<TrainerDocument> _trainersCollection;
+    private readonly IMongoCollection<TrainerDocument> _TrainersCollection;
 
-
-   public TrainerRepository(IMongoDatabase database,
-   IOptions<MongoDBSettings> settings){
-        _trainersCollection =
-        database.GetCollection<TrainerDocument>(settings.Value.TrainerCollectionName);
+    public TrainerRepository(IMongoDatabase database, IOptions<MongoDBSettings> settings){
+       _TrainersCollection = database.GetCollection<TrainerDocument>(settings.Value.TrainersCollectionName);
     }
-    úblic async async Task<Trainer?> GetTrainerByIdAsync(string id, CancellationToken cancellationToken)
+
+    public async Task<Trainer?> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        var trainer = await _trainersCollection.Find(x => x.Id == id).FirstOrDefaultAsync(cancellationToken);
+        var trainer = await _TrainersCollection.Find(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
         return trainer?.ToModel();
     }
-    }
 
+}
