@@ -32,4 +32,8 @@ class TrainerServiceServicer(trainerPython_pb2_grpc.TrainerServiceServicer):
             trainers=created_responses
         )
 
-
+    async def GetTrainersByName(self, request, context):
+        # 🔁 Línea corregida aquí
+        trainers = await self._repo.get_by_name(request.name)
+        for trainer in trainers:
+            yield domain_to_response(trainer)

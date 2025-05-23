@@ -9,11 +9,9 @@ from repositories.i_trainer_repository import ITrainerRepository
 
 class TrainerRepository(ITrainerRepository):
     def __init__(self, collection: AsyncIOMotorCollection):
-        
         self.collection = collection
 
     async def get_by_id(self, id: str) -> Optional[Trainer]:
-        
         try:
             oid = ObjectId(id)
         except Exception:
@@ -23,11 +21,9 @@ class TrainerRepository(ITrainerRepository):
         if raw is None:
             return None
 
-        
         raw["id"] = str(raw["_id"])
         raw.pop("_id", None)
 
-        
         medals_raw = raw.get("medals", [])
         raw["medals"] = [
             m if isinstance(m, MedalDocument) else MedalDocument(**m)
@@ -38,7 +34,6 @@ class TrainerRepository(ITrainerRepository):
         return document_to_domain(trainer_doc)
 
     async def create(self, trainer: Trainer) -> Trainer:
-        
         trainer_doc = domain_to_document(trainer)
         data = trainer_doc.to_bson()
 
@@ -48,7 +43,6 @@ class TrainerRepository(ITrainerRepository):
         return document_to_domain(trainer_doc)
 
     async def get_by_name(self, name: str) -> List[Optional[Trainer]]:
-        
         cursor = self.collection.find(
             {"name": {"$regex": name, "$options": "i"}}
         )
@@ -69,5 +63,3 @@ class TrainerRepository(ITrainerRepository):
             trainers.append(document_to_domain(trainer_doc))
 
         return trainers
-
-        
