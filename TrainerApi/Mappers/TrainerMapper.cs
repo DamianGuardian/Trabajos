@@ -30,7 +30,6 @@ public static class TrainerMapper
 
     public static Trainer ToModel(this CreateTrainerRequest trainer){
         return new Trainer{
-            Id = Guid.NewGuid().ToString(),
             Name = trainer.Name,
             Age = trainer.Age,
             Birthdate = trainer.Birthdate.ToDateTime(),

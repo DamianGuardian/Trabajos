@@ -12,8 +12,9 @@ public class TrainerRepository : ITrainerRepository
 {
     private readonly IMongoCollection<TrainerDocument> _TrainersCollection;
 
-    public TrainerRepository(IMongoDatabase database, IOptions<MongoDBSettings> settings){
-       _TrainersCollection = database.GetCollection<TrainerDocument>(settings.Value.TrainersCollectionName);
+    public TrainerRepository(IMongoDatabase database, IOptions<MongoDBSettings> settings)
+    {
+        _TrainersCollection = database.GetCollection<TrainerDocument>(settings.Value.TrainersCollectionName);
     }
 
     public async Task<Trainer?> GetByIdAsync(string id, CancellationToken cancellationToken)
@@ -22,31 +23,34 @@ public class TrainerRepository : ITrainerRepository
         return trainer?.ToModel();
     }
 
-    public async Task<Trainer> CreateAsync(Trainer trainer, CancellationToken cancellationToken){
+    public async Task<Trainer> CreateAsync(Trainer trainer, CancellationToken cancellationToken)
+    {
         var document = trainer.ToDocument();
         await _TrainersCollection.InsertOneAsync(document, cancellationToken);
         return document.ToModel();
     }
 
     public async Task<List<Trainer>> GetByNameAsync(string name, CancellationToken cancellationToken)
-        {
-            var filter = Builders<TrainerDocument>.Filter.Regex(
-                t => t.Name,
-                new MongoDB.Bson.BsonRegularExpression(name, "i")
-            );
-            var docs = await _TrainersCollection
-                .Find(filter)
-                .ToListAsync(cancellationToken);
+    {
+        var filter = Builders<TrainerDocument>.Filter.Regex(
+            t => t.Name,
+            new MongoDB.Bson.BsonRegularExpression(name, "i")
+        );
+        var docs = await _TrainersCollection
+            .Find(filter)
+            .ToListAsync(cancellationToken);
 
-            return docs
-                .Select(d => d.ToModel()!)
-                .ToList();
-        }
+        return docs
+            .Select(d => d.ToModel()!)
+            .ToList();
+    }
 
     public Task<List<Trainer>> GetByNameAsync(CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
+    
+    
 }
 
 
