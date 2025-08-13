@@ -21,5 +21,10 @@ namespace PokedexApi.Services
             string name,
             CancellationToken cancellationToken)
             => _repo.GetTrainersByNameAsync(name, cancellationToken);
+
+        public async Task<(int SuccessCount, List<Trainer> CreatedTrainers)> CreateTrainerAsync(List<Trainer> trainers, CancellationToken cancellationToken)
+        {
+            return await _repo.CreateTrainerAsync(trainers, cancellationToken);
+        }
     }
 }

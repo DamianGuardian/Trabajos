@@ -1,11 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using PokedexApi.Dtos;
+using PokedexApi.Exceptions;
+using PokedexApi.Infrastructure.Grpc;
 using PokedexApi.Mappers;
+using PokedexApi.Models;
 using PokedexApi.Services;
 using PokemonApi.Dtos;
 
@@ -57,5 +62,18 @@ namespace PokedexApi.Controllers
 
             return Ok(results);
         }
+
+
+                [HttpPost]
+        public async Task<ActionResult> CreateTrainerAsync(
+            [FromBody] List<CreateTrainerRequestDto> request,
+            CancellationToken cancellationToken)
+        {
+            var trainers = request.ToModel();
+            var (createdTrainers, successCount) = await _service.CreateTrainerAsync(trainers, cancellationToken);
+        
+            return Ok(new { successCount, createdTrainers });
+        }
+
     }
 }
