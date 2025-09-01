@@ -1,0 +1,27 @@
+using System.ServiceModel;
+using PokemonApi.Dtos;
+using PokemonApi.Models;
+
+namespace PokedexApi.Infrastructure.Soap.Contracts;
+
+
+    [ServiceContract(Name = "HobbieService", Namespace = "http://pokemonapi/hobbies-service")]
+    public interface IHobbiesService
+    {
+        [OperationContract]
+        Task<HobbiesResponseDto> GetHobbiesById(int id, CancellationToken cancellationToken);
+
+        [OperationContract]
+        Task<bool> DeleteHobbies(int id, CancellationToken cancellationToken);
+
+        [OperationContract]
+        Task<List<HobbiesResponseDto>> GetHobbieByName(string name, CancellationToken cancellationToken);
+
+        [OperationContract]
+        Task<HobbiesResponseDto> CreateHobbies(CreateHobbiesDto createHobbiesDto, CancellationToken cancellationToken);
+
+        [OperationContract]
+        Task<HobbiesResponseDto> UpdateHobbies(UpdateHobbiesDto hobbies, CancellationToken cancellationToken);
+    Task<List<Hobbies>?> GetHobbiesByType(string type, CancellationToken cancellationToken);
+    Task<List<Hobbies>?> GetHobbiesByTypeAsync(string type);
+}
